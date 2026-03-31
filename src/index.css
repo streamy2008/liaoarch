@@ -1,15 +1,9 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Serif+SC:wght@300;400;500;700;900&family=ZCOOL+XiaoWei&family=Ma+Shan+Zheng&family=Zhi+Mang+Xing&display=swap');
-
-@font-face {
-  font-family: 'KouzanBrushFont';
-  src: url('https://cdn.jsdelivr.net/gh/font-spider/font-spider-webfont/fonts/KouzanBrushFont/KouzanBrushFont.ttf') format('truetype');
-  font-display: swap;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Serif+SC:wght@300;400;500;700;900&display=swap');
 
 @theme {
   --font-sans: "Noto Serif SC", "Inter", "Source Han Serif SC", "Source Han Serif CN", "Songti SC", "SimSun", serif;
-  --font-display: "KouzanBrushFont", "Zhi Mang Xing", "Ma Shan Zheng", "ZCOOL XiaoWei", "Kaiti SC", "KaiTi", serif;
+  --font-display: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
 
   --color-liao-black: #1A1A1A; /* 炭黑 */
   --color-liao-red: #8B2323;   /* 朱砂红 */
