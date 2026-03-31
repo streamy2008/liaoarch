@@ -8,7 +8,6 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import { 
-  Camera, 
   MapPin, 
   History, 
   Info, 
@@ -16,12 +15,10 @@ import {
   ChevronRight, 
   ArrowLeft,
   Loader2,
-  RefreshCw,
   Share2,
   Check
 } from 'lucide-react';
 import { BUILDINGS, Building } from './constants';
-import { fetchOssExif, OssExifData } from './lib/oss';
 
 export default function App() {
   const [selectedBuilding, setSelectedBuilding] = useState<Building | null>(null);
@@ -243,7 +240,7 @@ const BuildingCard: React.FC<{ building: Building, index: number, onClick: () =>
       </div>
       
       <div className="space-y-1">
-        <h3 className="text-xl group-hover:text-white transition-colors font-display">
+        <h3 className="text-xl group-hover:text-white transition-colors font-display whitespace-nowrap overflow-hidden text-ellipsis">
           {building.name}
         </h3>
         <p className="text-xs text-gray-500 tracking-widest uppercase">
@@ -255,8 +252,6 @@ const BuildingCard: React.FC<{ building: Building, index: number, onClick: () =>
 }
 
 function DetailPage({ building, onBack }: { building: Building, onBack: () => void }) {
-  const [exifData, setExifData] = useState<OssExifData | null>(null);
-  const [loadingExif, setLoadingExif] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
 
@@ -284,22 +279,6 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
       }
     }
   };
-
-  useEffect(() => {
-    if (building.imageUrl && building.isCaptured) {
-      setLoadingExif(true);
-      fetchOssExif(building.imageUrl).then(data => {
-        if (data) {
-          setExifData(data);
-        }
-        setLoadingExif(false);
-      });
-    } else {
-      setExifData(null);
-    }
-  }, [building]);
-
-  const displayExif = exifData || building.exif;
 
   const scrollRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -353,7 +332,7 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
         
         <motion.div 
           style={{ opacity }}
-          className="absolute bottom-20 left-8 md:left-20 max-w-2xl"
+          className="absolute bottom-20 left-8 md:left-20 max-w-5xl"
           onClick={(e) => e.stopPropagation()}
         >
           <motion.div
@@ -361,7 +340,7 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 1 }}
           >
-            <h2 className="text-5xl md:text-8xl mb-6 leading-tight font-display">
+            <h2 className="text-4xl md:text-8xl mb-6 leading-tight font-display whitespace-nowrap">
               {building.name}
             </h2>
             <div className="flex flex-wrap items-center gap-6 text-liao-gold/80">
@@ -389,8 +368,8 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
       {/* Content Sections */}
       <div className="max-w-6xl mx-auto px-8 mt-32 space-y-48" onClick={(e) => e.stopPropagation()}>
         {/* Archive & Description */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-20">
-          <div className="md:col-span-2 space-y-16">
+        <section className="space-y-16">
+          <div className="max-w-4xl space-y-16">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -404,13 +383,14 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
                 <ReactMarkdown 
                   rehypePlugins={[rehypeRaw]}
                   components={{
-                    p: ({ children }) => <p className="text-xl md:text-2xl leading-relaxed text-gray-100 font-light italic font-display mb-6">{children}</p>,
-                    h1: ({ children }) => <h1 className="text-3xl md:text-4xl font-display text-liao-gold mb-8 mt-12">{children}</h1>,
-                    h2: ({ children }) => <h2 className="text-2xl md:text-3xl font-display text-liao-gold mb-6 mt-10">{children}</h2>,
-                    li: ({ children }) => <li className="text-lg md:text-xl text-gray-300 font-light mb-2 list-disc ml-6">{children}</li>,
+                    p: ({ children }) => <p className="text-base md:text-lg leading-relaxed text-gray-400 font-light mb-2">{children}</p>,
+                    h1: ({ children }) => <h1 className="text-2xl md:text-3xl font-display text-liao-gold mb-6 mt-10">{children}</h1>,
+                    h2: ({ children }) => <h2 className="text-xl md:text-2xl font-display text-liao-gold mb-4 mt-8">{children}</h2>,
+                    strong: ({ children }) => <strong className="text-liao-gold font-medium block mt-6 mb-2">{children}</strong>,
+                    li: ({ children }) => <li className="text-base md:text-lg text-gray-400 font-light mb-2 list-disc ml-6">{children}</li>,
                     ul: ({ children }) => <ul className="mb-8">{children}</ul>,
                     small: ({ children }) => (
-                      <div className="text-base md:text-lg text-gray-500 font-light mt-12 border-t border-white/5 pt-8 [&_li]:text-sm [&_li]:md:text-base [&_p]:text-base [&_p]:md:text-lg">
+                      <div className="text-sm md:text-base text-gray-500 font-light mt-12 border-t border-white/5 pt-8 [&_li]:text-xs [&_li]:md:text-sm [&_p]:text-sm [&_p]:md:text-base">
                         {children}
                       </div>
                     ),
@@ -430,31 +410,11 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
               <h4 className="text-xs uppercase tracking-[0.5em] text-liao-gold flex items-center gap-3">
                 <span className="w-8 h-[1px] bg-liao-gold/30" /> 摄影师手记
               </h4>
-              <p className="text-lg md:text-xl leading-relaxed text-gray-400 font-light">
+              <p className="text-base md:text-lg leading-relaxed text-gray-400 font-light">
                 {building.photographerNote}
               </p>
             </motion.div>
           </div>
-
-          {/* EXIF Card */}
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="bg-liao-black/40 border border-white/5 p-10 space-y-8 self-start backdrop-blur-md sticky top-32"
-          >
-            <div className="flex justify-between items-center">
-              <h4 className="text-[10px] uppercase tracking-[0.5em] text-liao-gold/60">EXIF 拍摄参数</h4>
-              {loadingExif && <RefreshCw className="w-3 h-3 text-liao-gold/40 animate-spin" />}
-            </div>
-            <div className="space-y-6">
-              <ExifItem label="相机" value={displayExif?.camera} />
-              <ExifItem label="镜头" value={displayExif?.lens} />
-              <ExifItem label="光圈" value={displayExif?.aperture} />
-              <ExifItem label="快门" value={displayExif?.shutter} />
-              <ExifItem label="ISO" value={displayExif?.iso} />
-            </div>
-          </motion.div>
         </section>
 
         {/* Cinematic Handscroll Gallery Section */}
@@ -609,15 +569,6 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
-  );
-}
-
-function ExifItem({ label, value }: { label: string, value?: string }) {
-  return (
-    <div className="flex justify-between items-end border-b border-white/5 pb-2">
-      <span className="text-[10px] uppercase tracking-widest text-gray-600">{label}</span>
-      <span className="text-sm font-light text-gray-300">{value || '-'}</span>
     </div>
   );
 }
