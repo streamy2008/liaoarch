@@ -1,0 +1,50 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Serif+SC:wght@300;400;500;700;900&family=ZCOOL+XiaoWei&display=swap');
+
+@theme {
+  --font-sans: "Noto Serif SC", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Noto Serif SC", "ZCOOL XiaoWei", serif;
+
+  --color-liao-black: #1A1A1A; /* 炭黑 */
+  --color-liao-red: #8B2323;   /* 朱砂红 */
+  --color-liao-blue: #2F4F4F;  /* 石青 */
+  --color-liao-gold: #A68B5B;  /* 土黄 */
+  --color-liao-ink: #0D0D0D;   /* 墨色背景 */
+}
+
+@layer base {
+  body {
+    @apply bg-liao-ink text-gray-300 font-sans antialiased font-light;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-wider text-liao-gold;
+  }
+}
+
+/* Custom scroll animation effect */
+.perspective-container {
+  perspective: 1000px;
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(50px) rotateX(10deg);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-reveal.active {
+  opacity: 1;
+  transform: translateY(0) rotateX(0);
+}
+
+/* Handscroll expand effect */
+.handscroll-expand {
+  overflow: hidden;
+  width: 0;
+  transition: width 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.handscroll-expand.active {
+  width: 100%;
+}
