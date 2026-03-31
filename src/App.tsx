@@ -18,10 +18,7 @@ import {
   Loader2,
   RefreshCw,
   Share2,
-  Check,
-  X,
-  ZoomIn,
-  ZoomOut
+  Check
 } from 'lucide-react';
 import { BUILDINGS, Building } from './constants';
 import { fetchOssExif, OssExifData } from './lib/oss';
@@ -264,7 +261,6 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
   const [exifData, setExifData] = useState<OssExifData | null>(null);
   const [loadingExif, setLoadingExif] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [isZoomed, setIsZoomed] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const handleShare = async () => {
@@ -326,26 +322,19 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
       <div className="fixed top-8 left-8 right-8 z-50 flex justify-between items-center pointer-events-none">
         <button 
           onClick={onBack}
-          className="pointer-events-auto flex items-center gap-2 text-liao-gold/40 hover:text-liao-gold transition-colors group bg-black/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/5"
+          className="pointer-events-auto flex items-center justify-center text-liao-gold/40 hover:text-liao-gold transition-colors group bg-black/10 backdrop-blur-sm w-10 h-10 rounded-full border border-white/5"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          <span className="text-[10px] tracking-widest uppercase">返回展厅</span>
         </button>
 
         <button 
           onClick={handleShare}
-          className="pointer-events-auto flex items-center gap-2 text-liao-gold/40 hover:text-liao-gold transition-colors group bg-black/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/5"
+          className="pointer-events-auto flex items-center justify-center text-liao-gold/40 hover:text-liao-gold transition-colors group bg-black/10 backdrop-blur-sm w-10 h-10 rounded-full border border-white/5"
         >
           {copied ? (
-            <>
-              <Check className="w-4 h-4 text-green-500" />
-              <span className="text-[10px] tracking-widest uppercase text-green-500">链接已复制</span>
-            </>
+            <Check className="w-4 h-4 text-green-500" />
           ) : (
-            <>
-              <Share2 className="w-4 h-4 group-hover:scale-110 transition-transform" />
-              <span className="text-[10px] tracking-widest uppercase">分享</span>
-            </>
+            <Share2 className="w-4 h-4 group-hover:scale-110 transition-transform" />
           )}
         </button>
       </div>
@@ -608,54 +597,18 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/95 backdrop-blur-xl p-4 md:p-12 overflow-hidden"
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-xl cursor-zoom-out p-4 md:p-12"
           >
-            {/* Close Button */}
-            <button 
-              onClick={() => {
-                setSelectedImage(null);
-                setIsZoomed(false);
-              }}
-              className="absolute top-8 right-8 z-[110] p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors backdrop-blur-md"
-            >
-              <X className="w-6 h-6" />
-            </button>
-
-            {/* Zoom Toggle Button */}
-            <button 
-              onClick={() => setIsZoomed(!isZoomed)}
-              className="absolute top-8 right-24 z-[110] p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors backdrop-blur-md"
-            >
-              {isZoomed ? <ZoomOut className="w-6 h-6" /> : <ZoomIn className="w-6 h-6" />}
-            </button>
-
-            <div 
-              className={`relative w-full h-full flex items-center justify-center transition-all duration-500 ${isZoomed ? 'cursor-zoom-out' : 'cursor-zoom-in'}`}
-              onClick={() => setIsZoomed(!isZoomed)}
-            >
-              <motion.img
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ 
-                  scale: isZoomed ? 1.5 : 1, 
-                  opacity: 1,
-                  x: 0,
-                  y: 0
-                }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                src={selectedImage}
-                alt="Full Screen Preview"
-                className={`max-w-full max-h-full object-contain shadow-2xl transition-transform duration-500`}
-                referrerPolicy="no-referrer"
-                drag={isZoomed}
-                dragConstraints={{ left: -300, right: 300, top: -300, bottom: 300 }}
-              />
-            </div>
-
-            {!isZoomed && (
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40 text-[10px] uppercase tracking-[0.4em] pointer-events-none">
-                点击图片缩放 · 拖拽移动
-              </div>
-            )}
+            <motion.img
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              src={selectedImage}
+              alt="Full Screen Preview"
+              className="max-w-full max-h-full object-contain shadow-2xl"
+              referrerPolicy="no-referrer"
+            />
           </motion.div>
         )}
       </AnimatePresence>
