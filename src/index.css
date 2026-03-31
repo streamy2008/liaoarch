@@ -8,8 +8,8 @@
 }
 
 @theme {
-  --font-sans: "Noto Serif SC", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "KouzanBrushFont", "衡山書道手本作成フォント", "Zhi Mang Xing", "Ma Shan Zheng", "ZCOOL XiaoWei", serif;
+  --font-sans: "Noto Serif SC", "Inter", "Source Han Serif SC", "Source Han Serif CN", "Songti SC", "SimSun", serif;
+  --font-display: "KouzanBrushFont", "Zhi Mang Xing", "Ma Shan Zheng", "ZCOOL XiaoWei", "Kaiti SC", "KaiTi", serif;
 
   --color-liao-black: #1A1A1A; /* 炭黑 */
   --color-liao-red: #8B2323;   /* 朱砂红 */

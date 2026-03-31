@@ -209,10 +209,7 @@ const BuildingCard: React.FC<{ building: Building, index: number, onClick: () =>
       </div>
       
       <div className="space-y-1">
-        <h3 
-          className="text-xl group-hover:text-white transition-colors font-display"
-          style={{ fontFamily: 'KouzanBrushFont, "Zhi Mang Xing", "Ma Shan Zheng", cursive' }}
-        >
+        <h3 className="text-xl group-hover:text-white transition-colors font-display">
           {building.name}
         </h3>
         <p className="text-xs text-gray-500 tracking-widest uppercase">
@@ -292,10 +289,7 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 1 }}
           >
-            <h2 
-              className="text-5xl md:text-8xl mb-6 leading-tight font-display"
-              style={{ fontFamily: 'KouzanBrushFont, "Zhi Mang Xing", "Ma Shan Zheng", cursive' }}
-            >
+            <h2 className="text-5xl md:text-8xl mb-6 leading-tight font-display">
               {building.name}
             </h2>
             <div className="flex flex-wrap items-center gap-6 text-liao-gold/80">
@@ -511,10 +505,7 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
             viewport={{ once: true }}
             className="py-32 border-t border-white/5 text-center max-w-4xl mx-auto"
           >
-            <h3 
-              className="text-4xl md:text-5xl mb-12 font-display"
-              style={{ fontFamily: 'KouzanBrushFont, "Zhi Mang Xing", "Ma Shan Zheng", cursive' }}
-            >
+            <h3 className="text-4xl md:text-5xl mb-12 font-display">
               缺席的篇章
             </h3>
             <p className="text-xl md:text-2xl leading-relaxed text-gray-400 italic font-light">
