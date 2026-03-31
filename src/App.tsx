@@ -114,8 +114,7 @@ function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 1 }}
         >
-          <div className="flex justify-between items-end mb-2">
-            <span className="text-xs uppercase tracking-widest text-liao-gold/60">寻找木塔进度</span>
+          <div className="flex justify-end items-end mb-2">
             <span className="text-2xl font-display text-liao-gold">7 / 8</span>
           </div>
           <div className="h-[1px] w-full bg-gray-800 relative">
@@ -180,8 +179,8 @@ const BuildingCard: React.FC<{ building: Building, index: number, onClick: () =>
         
         {!building.isCaptured && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-xs tracking-[0.5em] uppercase text-white/60 bg-black/40 px-4 py-2 backdrop-blur-sm">
-              正在路上
+            <span className="text-[10px] tracking-[0.4em] uppercase text-white/80 bg-white/5 px-6 py-3 backdrop-blur-md border border-white/10 rounded-sm shadow-2xl">
+              On the Way
             </span>
           </div>
         )}
