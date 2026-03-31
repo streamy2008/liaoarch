@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Serif+SC:wght@300;400;500;700;900&display=swap');
 
 @theme {
   --font-sans: "Noto Serif SC", "Inter", "Source Han Serif SC", "Source Han Serif CN", "Songti SC", "SimSun", serif;
@@ -13,12 +12,16 @@
 }
 
 @layer base {
+  * {
+    font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", "Songti SC", "SimSun", serif;
+  }
+
   body {
-    @apply bg-liao-ink text-gray-300 font-sans antialiased font-light;
+    @apply bg-liao-ink text-gray-300 antialiased font-normal;
   }
 
   h1, h2, h3, h4, .font-display {
-    font-family: var(--font-display) !important;
+    font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif !important;
     @apply tracking-wider text-liao-gold;
   }
 }
