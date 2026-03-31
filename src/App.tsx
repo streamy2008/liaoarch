@@ -543,9 +543,6 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
               className="max-w-full max-h-full object-contain shadow-2xl"
               referrerPolicy="no-referrer"
             />
-            <div className="absolute top-8 right-8 text-white/40 text-xs uppercase tracking-[0.4em] pointer-events-none">
-              点击空白处返回
-            </div>
           </motion.div>
         )}
       </AnimatePresence>
