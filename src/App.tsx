@@ -226,6 +226,7 @@ const BuildingCard: React.FC<{ building: Building, index: number, onClick: () =>
 function DetailPage({ building, onBack }: { building: Building, onBack: () => void }) {
   const [exifData, setExifData] = useState<OssExifData | null>(null);
   const [loadingExif, setLoadingExif] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     if (building.imageUrl && building.isCaptured) {
@@ -402,7 +403,8 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className="group relative aspect-[4/3] overflow-hidden bg-liao-black"
+                onClick={() => setSelectedImage(building.imageUrl)}
+                className="group relative aspect-[4/3] overflow-hidden bg-liao-black cursor-zoom-in"
               >
                 {/* Blurred background on hover */}
                 <img 
@@ -437,7 +439,8 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: (idx + 1) * 0.1 }}
-                    className="group relative aspect-[4/3] overflow-hidden bg-liao-black"
+                    onClick={() => setSelectedImage(img)}
+                    className="group relative aspect-[4/3] overflow-hidden bg-liao-black cursor-zoom-in"
                   >
                     {/* Blurred background on hover */}
                     <img 
@@ -469,7 +472,8 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
-                  className="group relative aspect-[4/3] overflow-hidden bg-liao-black"
+                  onClick={() => setSelectedImage(`https://picsum.photos/seed/${building.id}-2/1200/900`)}
+                  className="group relative aspect-[4/3] overflow-hidden bg-liao-black cursor-zoom-in"
                 >
                   {/* Blurred background on hover */}
                   <img 
@@ -520,6 +524,31 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
         )}
 
       </div>
+
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-xl cursor-zoom-out p-4 md:p-12"
+          >
+            <motion.img
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              src={selectedImage}
+              alt="Full Screen Preview"
+              className="max-w-full max-h-full object-contain shadow-2xl"
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute top-8 right-8 text-white/40 text-xs uppercase tracking-[0.4em] pointer-events-none">
+              点击空白处返回
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
