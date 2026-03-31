@@ -17,10 +17,63 @@ export interface Building {
     iso: string;
   };
   imageUrl?: string;
+  gallery?: string[];
   mapUrl?: string;
 }
 
 export const BUILDINGS: Building[] = [
+  {
+    id: 'ge-xian-guan',
+    name: '涞源阁院寺文殊殿',
+    location: '河北涞源',
+    year: '辽应历十六年 (966年)',
+    status: '辽代木构中的精品',
+    isCaptured: true,
+    imageUrl: 'https://liaoarch.oss-cn-beijing.aliyuncs.com/laiyuangeyuansi/hero.jpg',
+    gallery: [
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/laiyuangeyuansi/1.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/laiyuangeyuansi/2.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/laiyuangeyuansi/B_3716.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/laiyuangeyuansi/B_3718.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/laiyuangeyuansi/B_3727.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/laiyuangeyuansi/B_3735.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/laiyuangeyuansi/B_3738.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/laiyuangeyuansi/B_3785.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/laiyuangeyuansi/B_3800.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/laiyuangeyuansi/B_3802.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/laiyuangeyuansi/B_3814.jpg'
+    ],
+    description: `* 地理位置：河北省保定市涞源县。
+* 建造年代：辽穆宗应历十六年 (966年)。
+* 保护级别：第一批全国重点文物保护单位（1961年）。
+* 地位评价：中国现存规模最大、保存最完整的辽代早期单体建筑，“八大辽构”中年代较早的代表作。
+2. 建筑形制与规格
+* 屋顶形式：单檐歇山顶（坡度平缓，具晚唐遗风）。
+* 平面布局：面阔三间（15.67米），进深三间（15.39米），平面近正方形。
+* 梁架结构：彻上露明造，采用“减柱造”手法（仅存两根后金柱），极大扩充了内部空间。
+* 柱身特征：粗壮有力，具有明显的“侧脚”（向内倾斜）与“生起”（逐根增高），增强了视觉稳定性。
+3. 核心艺术特征（建筑史孤例）
+* 雄健斗拱：外檐斗拱为“五铺作单抄单下昂”，昂嘴极厚重，补间铺作保留原始斜撑，材份硕大，展现辽代早期粗犷力度。
+* 辽代原装木窗：殿内保留了全国唯一的辽代木质棂窗实物。图案包括三交六椀菱花、直棂等，是研究中国古代门窗演变的唯一实物标本。
+* 辽代彩画：梁架上残存有辽代“生色花”彩画痕迹，具有极高的学术价值。
+4. 关联文物
+* 辽代石经幢：刻于辽天庆八年（1118年），位于殿前，是判定寺院历史的重要物证。
+* 万斤铁钟：辽天庆年间铸造，钟身满刻梵汉经文，工艺精湛。
+<small>
+5. 专家文献参考
+* 梁思成：《中国建筑史》
+* 刘敦桢：《中国古代建筑史》
+* 国家文物局：《中国文物地图集》
+</small>`,
+    photographerNote: '应历十六年的边塞风云，似乎还萦绕在文殊殿的檐下。涞源的山风凛冽，吹动着古老的风铃。镜头里，大殿的轮廓硬朗而豪放，斗拱的排布透着一种不屈的骨气。那是属于大辽边陲的坚韧，也是木构建筑最原始的生命力。',
+    exif: {
+      camera: 'Sony A7R IV',
+      lens: 'FE 24-70mm F2.8 GM',
+      aperture: 'f/8',
+      shutter: '1/200s',
+      iso: '100'
+    }
+  },
   {
     id: 'du-le-si',
     name: '独乐寺观音阁',
@@ -29,6 +82,25 @@ export const BUILDINGS: Building[] = [
     status: '现存最古老的木制高层楼阁',
     isCaptured: true,
     imageUrl: 'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesiguanyingge/hero.jpeg',
+    gallery: [
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesiguanyingge/1.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesiguanyingge/2.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesiguanyingge/3.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesiguanyingge/4.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesiguanyingge/5.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesiguanyingge/6.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesiguanyingge/7.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesiguanyingge/8.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesiguanyingge/9.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesiguanyingge/B_0316.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesiguanyingge/B_0325.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesiguanyingge/B_0326.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesiguanyingge/B_0327.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesiguanyingge/B_0329.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesiguanyingge/B_0330.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesiguanyingge/B_0331.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesiguanyingge/B_0333.jpg'
+    ],
     description: '观音阁高23米，是我国现存最古老的木制高层楼阁。其斗拱种类繁多，排列紧密，体现了辽代建筑雄健的风格。',
     photographerNote: '统和二年的风，吹过独乐寺的檐角。镜头里，观音阁那硕大的斗拱如同巨人的关节，支撑起千年的庄严。庑殿顶的举折平缓而有力，那是大辽独有的雄健。清晨的光线斜射入阁，尘埃在光柱中翻滚，那一刻，我听见了木头呼吸的声音，那是跨越千年的对话。',
     exif: {
@@ -46,7 +118,16 @@ export const BUILDINGS: Building[] = [
     year: '辽统和二年 (984年)',
     status: '现存最早的庑殿顶山门',
     isCaptured: true,
-    imageUrl: 'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesishanmen/hero.jpg',
+    imageUrl: 'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesishanmen/B_0778.jpg',
+    gallery: [
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesishanmen/B_0734.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesishanmen/B_0732.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesishanmen/1.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesishanmen/2.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesishanmen/3.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesishanmen/4.jpg',
+      'https://liaoarch.oss-cn-beijing.aliyuncs.com/dulesishanmen/5.jpg'
+    ],
     description: '独乐寺山门面阔三间，进深两间，单檐庑殿顶，是现存最早的庑殿顶山门实例。其斗拱雄健，出檐深远。',
     photographerNote: '统和二年的匠心，不仅在观音阁，更在这座山门之中。单檐庑殿顶的轮廓在镜头里极其舒展，斗拱的力度感是大辽性格的最好注脚。站在山门前，仿佛能感受到千年前边塞重镇的威严。',
     exif: {
@@ -73,6 +154,24 @@ export const BUILDINGS: Building[] = [
       aperture: 'f/5.6',
       shutter: '1/30s',
       iso: '800'
+    }
+  },
+  {
+    id: 'kai-shan-si',
+    name: '高碑店开善寺大殿',
+    location: '河北高碑店',
+    year: '约辽代中期 (1033 年左右)',
+    status: '典型的辽代单檐布瓦庑殿顶',
+    isCaptured: true,
+    imageUrl: 'https://liaoarch.oss-cn-beijing.aliyuncs.com/gaobeidiankaishansidadian/hero.jpg',
+    description: '开善寺大殿虽规模不大，但其庑殿顶的出檐深远，斗拱雄健，极具力量感。',
+    photographerNote: '夕阳西下，开善寺大殿的剪影在平原上显得格外孤独而高傲。单檐庑殿顶的出檐极其深远，如同大鹏展翅。镜头聚焦于那古拙的斗拱，没有繁杂的装饰，只有结构本身的力量。那是大辽建筑最纯粹的性格：雄健、豪放、古拙。',
+    exif: {
+      camera: 'Sony A7R IV',
+      lens: 'FE 70-200mm F2.8 GM',
+      aperture: 'f/4',
+      shutter: '1/500s',
+      iso: '100'
     }
   },
   {
@@ -108,42 +207,6 @@ export const BUILDINGS: Building[] = [
       lens: 'FE 24-70mm F2.8 GM',
       aperture: 'f/11',
       shutter: '1/10s',
-      iso: '100'
-    }
-  },
-  {
-    id: 'ge-xian-guan',
-    name: '涞源阁院寺文殊殿',
-    location: '河北涞源',
-    year: '辽天庆年间',
-    status: '辽代木构中的精品',
-    isCaptured: true,
-    imageUrl: 'https://liaoarch.oss-cn-beijing.aliyuncs.com/laiyuangeyuansi/hero.jpg',
-    description: '文殊殿是阁院寺的主体建筑，其斗拱和梁架结构完整保留了辽代特征。',
-    photographerNote: '天庆年间的边塞风云，似乎还萦绕在文殊殿的檐下。涞源的山风凛冽，吹动着古老的风铃。镜头里，大殿的轮廓硬朗而豪放，斗拱的排布透着一种不屈的骨气。那是属于大辽边陲的坚韧，也是木构建筑最原始的生命力。',
-    exif: {
-      camera: 'Sony A7R IV',
-      lens: 'FE 24-70mm F2.8 GM',
-      aperture: 'f/8',
-      shutter: '1/200s',
-      iso: '100'
-    }
-  },
-  {
-    id: 'kai-shan-si',
-    name: '高碑店开善寺大殿',
-    location: '河北高碑店',
-    year: '辽代始建',
-    status: '典型的辽代单檐布瓦庑殿顶',
-    isCaptured: true,
-    imageUrl: 'https://liaoarch.oss-cn-beijing.aliyuncs.com/gaobeidiankaishansidadian/hero.jpg',
-    description: '开善寺大殿虽规模不大，但其庑殿顶的出檐深远，斗拱雄健，极具力量感。',
-    photographerNote: '夕阳西下，开善寺大殿的剪影在平原上显得格外孤独而高傲。单檐庑殿顶的出檐极其深远，如同大鹏展翅。镜头聚焦于那古拙的斗拱，没有繁杂的装饰，只有结构本身的力量。那是大辽建筑最纯粹的性格：雄健、豪放、古拙。',
-    exif: {
-      camera: 'Sony A7R IV',
-      lens: 'FE 70-200mm F2.8 GM',
-      aperture: 'f/4',
-      shutter: '1/500s',
       iso: '100'
     }
   },

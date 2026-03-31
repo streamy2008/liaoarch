@@ -4,6 +4,8 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import { 
   Camera, 
@@ -99,11 +101,14 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 1 }}
         >
-          <h1 className="text-6xl md:text-8xl mb-6 leading-tight">
+          <h1 
+            className="text-6xl md:text-8xl mb-6 leading-tight font-display"
+            style={{ fontFamily: 'KouzanBrushFont, "Zhi Mang Xing", "Ma Shan Zheng", cursive' }}
+          >
             大辽遗珍
           </h1>
           <p className="text-xl md:text-2xl font-light tracking-[0.3em] text-liao-gold/80 mb-12">
-            七座木构的影像朝圣
+            八座木构的影像朝圣
           </p>
         </motion.div>
 
@@ -169,12 +174,29 @@ const BuildingCard: React.FC<{ building: Building, index: number, onClick: () =>
       onClick={onClick}
     >
       <div className="relative aspect-[3/4] overflow-hidden bg-liao-black mb-4">
+        {/* Blurred background on hover to fill the aspect ratio gap */}
+        <img 
+          src={building.imageUrl} 
+          className="absolute inset-0 w-full h-full object-cover blur-lg opacity-0 group-hover:opacity-40 transition-opacity duration-700"
+          referrerPolicy="no-referrer"
+        />
+        
+        {/* Default cropped view */}
         <img 
           src={building.imageUrl} 
           alt={building.name}
-          className={`w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 ${!building.isCaptured ? 'grayscale blur-sm opacity-50' : ''}`}
+          className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:opacity-0 group-hover:scale-110 ${!building.isCaptured ? 'grayscale blur-sm opacity-50' : ''}`}
           referrerPolicy="no-referrer"
         />
+        
+        {/* Original proportion view on hover */}
+        <img 
+          src={building.imageUrl} 
+          alt={building.name}
+          className={`absolute inset-0 w-full h-full object-contain opacity-0 group-hover:opacity-100 transition-all duration-700 scale-95 group-hover:scale-100 ${!building.isCaptured ? 'grayscale blur-sm opacity-50' : ''}`}
+          referrerPolicy="no-referrer"
+        />
+
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         
         {!building.isCaptured && (
@@ -187,7 +209,10 @@ const BuildingCard: React.FC<{ building: Building, index: number, onClick: () =>
       </div>
       
       <div className="space-y-1">
-        <h3 className="text-xl group-hover:text-white transition-colors">
+        <h3 
+          className="text-xl group-hover:text-white transition-colors font-display"
+          style={{ fontFamily: 'KouzanBrushFont, "Zhi Mang Xing", "Ma Shan Zheng", cursive' }}
+        >
           {building.name}
         </h3>
         <p className="text-xs text-gray-500 tracking-widest uppercase">
@@ -266,7 +291,12 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 1 }}
           >
-            <h2 className="text-5xl md:text-8xl mb-6 leading-tight">{building.name}</h2>
+            <h2 
+              className="text-5xl md:text-8xl mb-6 leading-tight font-display"
+              style={{ fontFamily: 'KouzanBrushFont, "Zhi Mang Xing", "Ma Shan Zheng", cursive' }}
+            >
+              {building.name}
+            </h2>
             <div className="flex flex-wrap items-center gap-6 text-liao-gold/80">
               <button 
                 onClick={(e) => {
@@ -303,9 +333,25 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
               <h4 className="text-xs uppercase tracking-[0.5em] text-liao-gold flex items-center gap-3">
                 <span className="w-8 h-[1px] bg-liao-gold/30" /> 建筑档案
               </h4>
-              <p className="text-2xl md:text-3xl leading-relaxed text-gray-100 font-light italic font-display">
-                {building.description}
-              </p>
+              <div className="prose prose-invert prose-liao max-w-none">
+                <ReactMarkdown 
+                  rehypePlugins={[rehypeRaw]}
+                  components={{
+                    p: ({ children }) => <p className="text-xl md:text-2xl leading-relaxed text-gray-100 font-light italic font-display mb-6">{children}</p>,
+                    h1: ({ children }) => <h1 className="text-3xl md:text-4xl font-display text-liao-gold mb-8 mt-12">{children}</h1>,
+                    h2: ({ children }) => <h2 className="text-2xl md:text-3xl font-display text-liao-gold mb-6 mt-10">{children}</h2>,
+                    li: ({ children }) => <li className="text-lg md:text-xl text-gray-300 font-light mb-2 list-disc ml-6">{children}</li>,
+                    ul: ({ children }) => <ul className="mb-8">{children}</ul>,
+                    small: ({ children }) => (
+                      <div className="text-base md:text-lg text-gray-500 font-light mt-12 border-t border-white/5 pt-8 [&_li]:text-sm [&_li]:md:text-base [&_p]:text-base [&_p]:md:text-lg">
+                        {children}
+                      </div>
+                    ),
+                  }}
+                >
+                  {building.description || ''}
+                </ReactMarkdown>
+              </div>
             </motion.div>
             
             <motion.div 
@@ -351,33 +397,104 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
               <span className="w-8 h-[1px] bg-liao-gold/30" /> 影像细节
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Main image always shown first */}
               <motion.div 
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className="aspect-[4/3] overflow-hidden bg-liao-black"
+                className="group relative aspect-[4/3] overflow-hidden bg-liao-black"
               >
+                {/* Blurred background on hover */}
                 <img 
                   src={building.imageUrl} 
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" 
-                  alt="Detail 1" 
+                  className="absolute inset-0 w-full h-full object-cover blur-lg opacity-0 group-hover:opacity-40 transition-opacity duration-700"
                   referrerPolicy="no-referrer"
                 />
-              </motion.div>
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="aspect-[4/3] overflow-hidden bg-liao-black"
-              >
+                
+                {/* Default cropped view */}
                 <img 
-                  src={`https://picsum.photos/seed/${building.id}-2/1200/900`} 
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 grayscale opacity-50" 
-                  alt="Detail 2" 
+                  src={building.imageUrl} 
+                  className="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:opacity-0 group-hover:scale-110" 
+                  alt="Detail Main" 
+                  referrerPolicy="no-referrer"
+                />
+
+                {/* Original proportion view on hover */}
+                <img 
+                  src={building.imageUrl} 
+                  className="absolute inset-0 w-full h-full object-contain opacity-0 group-hover:opacity-100 transition-all duration-700 scale-95 group-hover:scale-100" 
+                  alt="Detail Main Full" 
                   referrerPolicy="no-referrer"
                 />
               </motion.div>
+              
+              {/* Gallery images or placeholders */}
+              {(building.gallery && building.gallery.length > 0) ? (
+                building.gallery.map((img, idx) => (
+                  <motion.div 
+                    key={idx}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: (idx + 1) * 0.1 }}
+                    className="group relative aspect-[4/3] overflow-hidden bg-liao-black"
+                  >
+                    {/* Blurred background on hover */}
+                    <img 
+                      src={img} 
+                      className="absolute inset-0 w-full h-full object-cover blur-lg opacity-0 group-hover:opacity-40 transition-opacity duration-700"
+                      referrerPolicy="no-referrer"
+                    />
+
+                    {/* Default cropped view */}
+                    <img 
+                      src={img} 
+                      className="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:opacity-0 group-hover:scale-110" 
+                      alt={`Detail ${idx + 1}`} 
+                      referrerPolicy="no-referrer"
+                    />
+
+                    {/* Original proportion view on hover */}
+                    <img 
+                      src={img} 
+                      className="absolute inset-0 w-full h-full object-contain opacity-0 group-hover:opacity-100 transition-all duration-700 scale-95 group-hover:scale-100" 
+                      alt={`Detail ${idx + 1} Full`} 
+                      referrerPolicy="no-referrer"
+                    />
+                  </motion.div>
+                ))
+              ) : (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="group relative aspect-[4/3] overflow-hidden bg-liao-black"
+                >
+                  {/* Blurred background on hover */}
+                  <img 
+                    src={`https://picsum.photos/seed/${building.id}-2/1200/900`} 
+                    className="absolute inset-0 w-full h-full object-cover blur-lg opacity-0 group-hover:opacity-40 transition-opacity duration-700"
+                    referrerPolicy="no-referrer"
+                  />
+
+                  {/* Default cropped view */}
+                  <img 
+                    src={`https://picsum.photos/seed/${building.id}-2/1200/900`} 
+                    className="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:opacity-0 group-hover:scale-110 grayscale opacity-50" 
+                    alt="Detail Placeholder" 
+                    referrerPolicy="no-referrer"
+                  />
+
+                  {/* Original proportion view on hover */}
+                  <img 
+                    src={`https://picsum.photos/seed/${building.id}-2/1200/900`} 
+                    className="absolute inset-0 w-full h-full object-contain opacity-0 group-hover:opacity-100 transition-all duration-700 scale-95 group-hover:scale-100 grayscale opacity-50" 
+                    alt="Detail Placeholder Full" 
+                    referrerPolicy="no-referrer"
+                  />
+                </motion.div>
+              )}
             </div>
           </section>
         )}
@@ -390,9 +507,14 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
             viewport={{ once: true }}
             className="py-32 border-t border-white/5 text-center max-w-4xl mx-auto"
           >
-            <h3 className="text-4xl md:text-5xl mb-12 font-display">缺席的篇章</h3>
+            <h3 
+              className="text-4xl md:text-5xl mb-12 font-display"
+              style={{ fontFamily: 'KouzanBrushFont, "Zhi Mang Xing", "Ma Shan Zheng", cursive' }}
+            >
+              缺席的篇章
+            </h3>
             <p className="text-xl md:text-2xl leading-relaxed text-gray-400 italic font-light">
-              “七缺其一，不仅是网站的遗憾，更是我心中的缺憾。佛宫寺释迦塔，那是世界现存最高、最古老的纯木构塔楼。它在风沙中屹立千年，那种脆弱而宏大的美，让我不敢轻易按下快门。我在等待一个完美的时机，或许是一场大雪，或许是一抹特定的斜阳。这个角落将一直留白，直到我与它相遇的那一天。”
+              “八缺其一，不仅是网站的遗憾，更是我心中的缺憾。佛宫寺释迦塔，那是世界现存最高、最古老的纯木构塔楼。它在风沙中屹立千年，那种脆弱而宏大的美，让我不敢轻易按下快门。我在等待一个完美的时机，或许是一场大雪，或许是一抹特定的斜阳。这个角落将一直留白，直到我与它相遇的那一天。”
             </p>
           </motion.section>
         )}
