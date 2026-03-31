@@ -16,7 +16,9 @@ import {
   ChevronRight, 
   ArrowLeft,
   Loader2,
-  RefreshCw
+  RefreshCw,
+  Share2,
+  Check
 } from 'lucide-react';
 import { BUILDINGS, Building } from './constants';
 import { fetchOssExif, OssExifData } from './lib/oss';
@@ -24,6 +26,41 @@ import { fetchOssExif, OssExifData } from './lib/oss';
 export default function App() {
   const [selectedBuilding, setSelectedBuilding] = useState<Building | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  // Handle URL hash for deep linking
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#/', '');
+      if (hash) {
+        const building = BUILDINGS.find(b => b.id === hash);
+        if (building) {
+          setSelectedBuilding(building);
+        } else {
+          setSelectedBuilding(null);
+        }
+      } else {
+        setSelectedBuilding(null);
+      }
+    };
+
+    // Initial check
+    handleHashChange();
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  // Update hash when building is selected
+  useEffect(() => {
+    if (selectedBuilding) {
+      window.location.hash = `/${selectedBuilding.id}`;
+    } else {
+      // Only clear if there was a hash
+      if (window.location.hash) {
+        window.history.pushState("", document.title, window.location.pathname + window.location.search);
+      }
+    }
+  }, [selectedBuilding]);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 1000);
@@ -224,6 +261,32 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
   const [exifData, setExifData] = useState<OssExifData | null>(null);
   const [loadingExif, setLoadingExif] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = async () => {
+    const shareData = {
+      title: `大辽遗珍 - ${building.name}`,
+      text: `探索辽代建筑之美：${building.name} (${building.year})`,
+      url: window.location.href,
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        console.error('Error sharing:', err);
+      }
+    } else {
+      // Fallback to clipboard
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch (err) {
+        console.error('Failed to copy:', err);
+      }
+    }
+  };
 
   useEffect(() => {
     if (building.imageUrl && building.isCaptured) {
@@ -255,14 +318,33 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
       className="relative min-h-screen pb-32 bg-liao-ink" 
       ref={scrollRef}
     >
-      {/* Back Button (Subtle) */}
-      <button 
-        onClick={onBack}
-        className="fixed top-8 left-8 z-50 flex items-center gap-2 text-liao-gold/40 hover:text-liao-gold transition-colors group bg-black/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/5"
-      >
-        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-        <span className="text-[10px] tracking-widest uppercase">返回展厅</span>
-      </button>
+      {/* Top Bar (Back & Share) */}
+      <div className="fixed top-8 left-8 right-8 z-50 flex justify-between items-center pointer-events-none">
+        <button 
+          onClick={onBack}
+          className="pointer-events-auto flex items-center gap-2 text-liao-gold/40 hover:text-liao-gold transition-colors group bg-black/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/5"
+        >
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+          <span className="text-[10px] tracking-widest uppercase">返回展厅</span>
+        </button>
+
+        <button 
+          onClick={handleShare}
+          className="pointer-events-auto flex items-center gap-2 text-liao-gold/40 hover:text-liao-gold transition-colors group bg-black/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/5"
+        >
+          {copied ? (
+            <>
+              <Check className="w-4 h-4 text-green-500" />
+              <span className="text-[10px] tracking-widest uppercase text-green-500">链接已复制</span>
+            </>
+          ) : (
+            <>
+              <Share2 className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              <span className="text-[10px] tracking-widest uppercase">分享</span>
+            </>
+          )}
+        </button>
+      </div>
 
       {/* Hero Image Section */}
       <section className="h-screen w-full relative overflow-hidden">
