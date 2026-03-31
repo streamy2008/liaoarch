@@ -231,9 +231,17 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
   return (
     <div 
       className="relative min-h-screen pb-32 bg-liao-ink" 
-      ref={scrollRef} 
-      onClick={onBack}
+      ref={scrollRef}
     >
+      {/* Back Button (Subtle) */}
+      <button 
+        onClick={onBack}
+        className="fixed top-8 left-8 z-50 flex items-center gap-2 text-liao-gold/40 hover:text-liao-gold transition-colors group bg-black/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/5"
+      >
+        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+        <span className="text-[10px] tracking-widest uppercase">返回展厅</span>
+      </button>
+
       {/* Hero Image Section */}
       <section className="h-screen w-full relative overflow-hidden">
         <motion.div 
