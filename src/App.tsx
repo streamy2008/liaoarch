@@ -138,14 +138,11 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 1 }}
         >
-          <h1 
-            className="text-6xl md:text-8xl mb-6 leading-tight font-display"
-            style={{ fontFamily: 'KouzanBrushFont, "Zhi Mang Xing", "Ma Shan Zheng", cursive' }}
-          >
-            大辽遗珍
+          <h1 className="text-6xl md:text-8xl mb-6 leading-tight font-display">
+            大遼遺珍
           </h1>
           <p className="text-xl md:text-2xl font-light tracking-[0.3em] text-liao-gold/80 mb-12">
-            八座木构的影像朝圣
+            八座木構的影像朝聖
           </p>
         </motion.div>
 
@@ -265,7 +262,7 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
 
   const handleShare = async () => {
     const shareData = {
-      title: `大辽遗珍 - ${building.name}`,
+      title: `大遼遺珍 - ${building.name}`,
       text: `探索辽代建筑之美：${building.name} (${building.year})`,
       url: window.location.href,
     };
@@ -628,7 +625,7 @@ function ExifItem({ label, value }: { label: string, value?: string }) {
 function Footer() {
   return (
     <footer className="py-20 border-t border-white/5 text-center">
-      <p className="text-xs tracking-[0.5em] text-gray-600 uppercase mb-4">大辽遗珍 · 影像朝圣</p>
+      <p className="text-xs tracking-[0.5em] text-gray-600 uppercase mb-4">大遼遺珍 · 影像朝聖</p>
       <p className="text-[10px] text-gray-700">© 2026 专注中国古代建筑摄影</p>
     </footer>
   );
