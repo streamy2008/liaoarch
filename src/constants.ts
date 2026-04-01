@@ -201,7 +201,6 @@ export const BUILDINGS: Building[] = [
       'https://liaoarch.oss-cn-beijing.aliyuncs.com/gaobeidiankaishansidadian/24.jpg',
       'https://liaoarch.oss-cn-beijing.aliyuncs.com/gaobeidiankaishansidadian/25.jpg',
       'https://liaoarch.oss-cn-beijing.aliyuncs.com/gaobeidiankaishansidadian/26.jpg',
-      'https://liaoarch.oss-cn-beijing.aliyuncs.com/gaobeidiankaishansidadian/27.jpg',
       'https://liaoarch.oss-cn-beijing.aliyuncs.com/gaobeidiankaishansidadian/28.jpg'
     ],
     description: `“八大辽构”中体量较小但极具唐风的一座，高碑店开善寺大殿（又称大雄宝殿）以其极其平缓的屋顶坡度和古朴的斗拱著称。它是研究辽代木构如何继承晚唐风格并向宋式演变的绝佳样本。位于河北省高碑店市旧城址内（原新城县），辽代约11世纪（具体年份不详，但建筑风格显示其晚于阁院寺，早于奉国寺），2006年国务院公布的第六批全国重点文物保护单位。单檐庑殿顶，面阔五间，进深三间（八椽）。平面长方形，屋顶坡度极其平缓（约22度），这是现存辽代建筑中最接近唐代“坡缓出檐深”特征的实例之一，梁架结构，彻上露明造。殿内采用了“减柱造”手法，仅用了两根内柱，极大开阔了殿内的祭祀空间。外檐斗拱，五铺作单抄单下昂，斗拱比例巨大，约等于柱高的二分之一。昂嘴呈批竹状，削杀有力，补间铺作，每间设一朵，形态与柱头铺作基本一致，这种“整齐划一”的特征是早期木构的遗风，柱础与柱身，柱身短粗，具有显著的侧脚和生起。柱头卷杀明显，线条柔和圆润。
