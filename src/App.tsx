@@ -386,7 +386,7 @@ function DetailPage({ building, onBack }: { building: Building, onBack: () => vo
                     p: ({ children }) => <p className="text-base md:text-lg leading-relaxed text-gray-400 font-light mb-2">{children}</p>,
                     h1: ({ children }) => <h1 className="text-2xl md:text-3xl font-display text-liao-gold mb-6 mt-10">{children}</h1>,
                     h2: ({ children }) => <h2 className="text-xl md:text-2xl font-display text-liao-gold mb-4 mt-8">{children}</h2>,
-                    strong: ({ children }) => <strong className="text-liao-gold font-medium block mt-6 mb-2">{children}</strong>,
+                    strong: ({ children }) => <strong className="text-xs uppercase tracking-[0.1em] text-liao-gold font-medium mr-2">{children}</strong>,
                     li: ({ children }) => <li className="text-base md:text-lg text-gray-400 font-light mb-2 list-disc ml-6">{children}</li>,
                     ul: ({ children }) => <ul className="mb-8">{children}</ul>,
                     small: ({ children }) => (
